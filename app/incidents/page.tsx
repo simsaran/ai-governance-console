@@ -1,6 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
 const sevColor = {
   P1: 'bg-red-100 text-red-800',
@@ -33,9 +35,13 @@ export default function IncidentsPage() {
   return (
     <main className="min-h-screen bg-slate-50 p-8">
       <div className="max-w-6xl mx-auto">
+        <Link href="/" className="text-blue-600 hover:underline flex items-center gap-1 mb-4 text-sm">
+          <ArrowLeft className="w-4 h-4" /> Back to Home
+        </Link>
         <h1 className="text-3xl font-bold mb-2">AI Incidents</h1>
-        <p className="text-slate-600 mb-6">Track and mitigate AI agent incidents across the portfolio</p>
-        
+        <p className="text-slate-600 mb-4">Track and mitigate AI agent incidents across the portfolio</p>
+        <Link href="/incidents/new" className="inline-block bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 text-sm mb-4">+ Log New Incident</Link>
+
         {loading ? (
           <div className="text-slate-500">Loading incidents...</div>
         ) : (
@@ -61,13 +67,13 @@ export default function IncidentsPage() {
                     </td>
                     <td className="p-3 font-medium">{i.agents?.name}</td>
                     <td className="p-3 text-slate-600">{i.category}</td>
-                    <td className="p-3 text-slate-600 text-sm">{i.description}</td>
+                    <td className="p-3 text-slate-600 text-sm max-w-xs">{i.description}</td>
                     <td className="p-3">
                       <span className={`px-2 py-1 rounded text-xs ${statusColor[i.status as keyof typeof statusColor]}`}>
                         {i.status}
                       </span>
                     </td>
-                    <td className="p-3 text-slate-700">{i.mttr_hours ?? '—'}</td>
+                    <td className="p-3 text-slate-700 font-mono">{i.mttr_hours ?? '—'}</td>
                   </tr>
                 ))}
               </tbody>

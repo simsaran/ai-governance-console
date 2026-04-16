@@ -1,6 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
 const tierColor = {
   unacceptable: 'bg-red-100 text-red-800',
@@ -23,7 +25,11 @@ export default function AgentsPage() {
   return (
     <main className="min-h-screen bg-slate-50 p-8">
       <div className="max-w-6xl mx-auto">
+        <Link href="/" className="text-blue-600 hover:underline flex items-center gap-1 mb-4 text-sm">
+          <ArrowLeft className="w-4 h-4" /> Back to Home
+        </Link>
         <h1 className="text-3xl font-bold mb-4">Agent Catalog</h1>
+        <Link href="/agents/new" className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm mb-4">+ Register New Agent</Link>
         <div className="mb-4">
           <select value={filter} onChange={e => setFilter(e.target.value)}
             className="border rounded px-3 py-2 bg-white">
